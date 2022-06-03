@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Add System</title>
+    </head>
+    <script>
+        function addsystem(){
+            student_name = document.getElementById("name").value;
+            roll_no = document.getElementById("rollno").value;
+            const XMLHttpRequestObject = new XMLHttpRequest();
+            XMLHttpRequestObject.open("GET","http://localhost:8001/addrollno/?name="+student_name+"&roll="+roll_no);
+            XMLHttpRequestObject.send();
+
+            XMLHttpRequestObject.onload = function() {
+            if (XMLHttpRequestObject.status === 200) {
+                //parse JSON datax`x
+                data = JSON.parse(XMLHttpRequestObject.responseText)
+                document.getElementById("display").innerHTML = "Student "+student_name+" with Roll No "+ roll_no +" is added";
+                //console.log(data)
+                // console.log(data.products)
+            } else if (XMLHttpRequestObject.status === 404) {
+                console.log("No records found")
+            }
+            }
+        }
+    </script>
+    <body>
+        <div>
+            <input id="name" placeholder="Name"></input>
+            <input id="rollno" placeholder="Roll No"></input>
+            <button id="ok" onclick="addsystem()">OK</button>
+        </div>
+        <p id="display"></p>
+    </body>
+</html>
